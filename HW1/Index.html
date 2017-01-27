@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html ng-app='intro'>
+<head>
+<title>Sauma CMS</title>
+     <meta charset="utf-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+	<script src="https://maxcdn.bootstrapcdn.com/bootlint/0.14.2/bootlint.min.js" integrity="sha384-SLfe/wBrCVfyGjtLhfUmA5cYQLnNVTRmwMUJ11s7x5HxXCKom2oeEwX9bvY74CAs" crossorigin="anonymous"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/readable/bootstrap.min.css" rel="stylesheet" integrity="sha384-Li5uVfY2bSkD3WQyiHX8tJd0aMF91rMrQP5aAewFkHkVSTT2TmD2PehZeMmm7aiL" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootlint/0.14.2/bootlint.min.js" integrity="sha384-SLfe/wBrCVfyGjtLhfUmA5cYQLnNVTRmwMUJ11s7x5HxXCKom2oeEwX9bvY74CAs" crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js" integrity="sha256-3SrLjPeRPa1ofM280r+OMcUjJZKLWJHr6SRtRu3dRb0=" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-route-segment/1.5.1/angular-route-segment.min.js" integrity="sha256-F4DULF+6IMDXuXb/q7fkBQg63wv6eIzn2Nrl4HDxIAU=" crossorigin="anonymous"></script>
+        
+	<link rel="stylesheet" href="styles.css"> 
+    <script src="app.module.js"></script>
+    <script src="app.controller.js"></script>
+	<script src="app.config.js"></script>
+
+</head>
+<body ng-controller="AppController"> 
+
+<div class="container">
+<div class = "row"> 
+<div class="col-md-12"> 
+      <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+	  <div class="container-fluid">
+	  <div class="navbar-header">
+          <a class="navbar-brand" href="#">Sauma</a>
+		  </div>  
+		  <form  class="navbar-form navbar-nav navbar-right" role="login" ng-submit = "checkPassword()">
+		  <div ng-show="loggedIn"><i class="fa fa-user-o navbar-right"> {{userName}}<br><button ng-click="logout()" class="btn btn-default">Logout</button></i></div>
+		  <div ng-hide="loggedIn"class="form-group">
+			<label class="sr-only" for="userNameLogin">User Name:</label>
+            <input type="text" class="form-control" placeholder="Username" ng-model="userName" required>
+            <label class="sr-only" for="password">Password</label> 
+            <input type="text" class="form-control" placeholder="Password" ng-model="password" required>
+            <button type="submit" class="btn btn-default">Login</button>
+           </div>	
+      </form>
+      </div>		
+	  </nav>
+	  </div>
+	  </div>
+      </div>
+	  
+	  <div class="container">
+	  <div class="row">
+	  <div class="col-md-12">
+	  <div class="page-header">
+      <small>Latest Updates</small><br>
+	  </div>
+	  </div>
+	  </div>
+	  </div>
+      <div ng-repeat="post in posts track by $index">
+      <div class="container">
+	  <div class="row">
+	  <div class="col-md-12">
+      <h2>{{post.title}}</h2>
+	  <p>{{post.body}}</p><br>
+	  <div ng-if="loggedIn">
+      <button  ng-hide="post.editing" ng-click="editPost($index)" class="btn btn-default">Edit</button>
+	  <button  ng-hide="post.editing" ng-click="deletePost($index)" class="btn btn-default">Delete</button>
+	  <hr>
+	  </div>
+	  </div>
+	  </div>
+	  </div>
+	  
+<div class="container">
+	  <div class="row">
+	   <div class="col-6 col-md-4"></div>
+	  <div class="col-6 col-md-4">
+      <div ng-if="post.editing">
+	  <div class="container">
+	  <div class="row">
+	  <div class="col-md-4">
+	  <div class=" panel panel-primary">
+	  <div class="panel-heading">
+	  <h3>Text Editor</h3>
+	  </div>
+      <div class="panel-body">
+	  <form class="form-group"
+	  <label >Title: <br>
+	  <input class="form-control"ng-model="newPost.title"></input></label><br>
+	  <label>Body:<br>
+	  <textarea cols="35"class="form-control" ng-model="newPost.body"></textarea></label><br>
+	  </form>
+	  <button ng-click="submitEdit($index)" class="btn btn-default">Submit</button>
+	  <button ng-click="cancelEdit($index)" class="btn btn-default">Cancel</button>
+	  </div>
+	  </div>
+	 </div>
+	 </div>
+	 </div>
+	 </div>
+     </div>
+	 
+	  <div class="col-6 col-md-4"></div>
+	     </div>
+		 </div>
+		 </div>
+	 <div class="container">
+	 <div class="row">
+	 <div class="col-md-12">
+	 <div ng-if="loggedIn">
+     <button  ng-hide="post.editing" ng-click="addPost()" class="btn btn-default">New Post</button>
+	 <hr>
+	 </div>
+	 </div>
+	 </div>
+	 </div>
+
+
+</body>
+</html>
